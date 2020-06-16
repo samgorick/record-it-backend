@@ -21,6 +21,12 @@ class NotesController < ApplicationController
     render json: note
   end
 
+  def destroy
+    note = Note.find_by(id: params[:id])
+    note.destroy
+    render json: {}
+  end
+
   private
 
   def note_params(*args)
