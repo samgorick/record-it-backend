@@ -15,10 +15,16 @@ class NotesController < ApplicationController
     render json: notes, include: [:user]
   end
 
+  def update
+    note = Note.find_by(id: params[:id])
+    note.update(note_params)
+    render json: note
+  end
+
   private
 
   def note_params(*args)
-    params.require(:note).permit(:title, :content, :user_id)
+    params.require(:note).permit(:id, :title, :content, :user_id)
   end
 
 end
