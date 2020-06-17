@@ -2,6 +2,10 @@ class NotesController < ApplicationController
 
   def create
     note = Note.create!(note_params)
+    params[:tags].each do |tag|
+      t = Tag.find_by(name: tag)
+      note.tags << t
+    end
     render json: note
   end
 
@@ -18,6 +22,11 @@ class NotesController < ApplicationController
   def update
     note = Note.find_by(id: params[:id])
     note.update(note_params)
+    note.tags.destroy_all
+    params[:tags].each do |tag|
+      t = Tag.find_by(name: tag)
+      note.tags << t
+    end
     render json: note
   end
 

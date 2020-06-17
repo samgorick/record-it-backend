@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_171707) do
+ActiveRecord::Schema.define(version: 2020_06_17_151149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,21 @@ ActiveRecord::Schema.define(version: 2020_06_15_171707) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "notetags", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "note_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["note_id"], name: "index_notetags_on_note_id"
+    t.index ["tag_id"], name: "index_notetags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
@@ -31,4 +46,6 @@ ActiveRecord::Schema.define(version: 2020_06_15_171707) do
   end
 
   add_foreign_key "notes", "users"
+  add_foreign_key "notetags", "notes"
+  add_foreign_key "notetags", "tags"
 end
