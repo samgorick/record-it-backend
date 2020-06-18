@@ -31,6 +31,8 @@ class NotesController < ApplicationController
   end
 
   def destroy
+    notetags = Notetag.where(note_id: params[:id])
+    notetags.destroy_all
     note = Note.find_by(id: params[:id])
     note.destroy
     render json: {}
