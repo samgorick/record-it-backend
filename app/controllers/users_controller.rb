@@ -19,6 +19,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    users = User.all 
+    render json: users.to_json(:only => [:id, :username, :created_at])
+  end
+
   private
 
   def user_params
@@ -26,16 +31,3 @@ class UsersController < ApplicationController
   end
 
 end
-  
-    # def show
-    #   token = request.headers['Authorization'].split(' ').last
-    #   decoded_token = JWT.decode(token, 's3cret!', true, { algorithm: 'HS256' })
-    #   id = decoded_token.first['user_id']
-  
-    #   user = User.find(id)
-    #   if user
-    #     render json: user, include: [:transactions, :budgets, :savings]
-    #   else
-    #     render json: [ error: 'Please log in']
-    #   end
-    # end
