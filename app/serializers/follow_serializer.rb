@@ -1,5 +1,5 @@
 class FollowSerializer < ActiveModel::Serializer
-  attributes :follower, :followed_user, :allow
+  attributes :id, :follower, :followed_user, :allow
 
   def follower
     user = User.find(@object.follower_id)

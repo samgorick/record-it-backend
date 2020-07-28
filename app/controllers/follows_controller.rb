@@ -12,10 +12,16 @@ def index
   render json: follows
 end
 
+def update
+  follow = Follow.find(follow_params[:id])
+  follow.update!(allow: true)
+  render json: follow
+end
+
 private
 
 def follow_params
-params.require(:follow).permit(:follower_id, :followed_user_id, :allow)
+params.require(:follow).permit(:id, :follower_id, :followed_user_id, :allow)
 end
 
 end
