@@ -10,8 +10,4 @@ class NoteSerializer < ActiveModel::Serializer
   def username
     @object.user.username
   end
-
-  # def tags
-  #   @object.tags.map{ |tag| TagSerializer.new(tag)}
-  # end
 end

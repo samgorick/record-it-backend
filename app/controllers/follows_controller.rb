@@ -2,12 +2,14 @@ class FollowsController < ApplicationController
 
 def create
   follow = Follow.create!(follow_params)
+  p follow 
+  p "****************"
   render json: follow
 end
 
 def index
-  users = User.all 
-  render json: users.to_json(:only => [:id, :username, :created_at])
+  follows = Follow.all
+  render json: follows
 end
 
 private
