@@ -7,7 +7,11 @@ class UserSerializer < ActiveModel::Serializer
 
   def notes
     mine = @object.notes
-    following = @object.followings.map { |f| f.notes }
+    allowed = @object.given_follows.select { |f| f.allow }
+    following = allowed.map{ |f| 
+      user = User.find(f.followed_user_id)
+      user.notes
+    }
     result = mine + following
     result.flatten
   end

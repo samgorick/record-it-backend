@@ -18,6 +18,11 @@ def update
   render json: follow
 end
 
+def destroy
+  follow = Follow.find(params[:id])
+  follow.delete
+end
+
 private
 
 def follow_params
