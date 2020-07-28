@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def index
     users = User.all 
-    render json: users.to_json(:only => [:id, :username, :created_at])
+    render json: users
   end
 
   private
