@@ -19,6 +19,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    token = request.headers['Authorization'].split(' ').last
+    decoded_token = JWT.decode(token, 's3cret!', true, { algorithm: 'HS256' })
+    id = decoded_token.first['user_id']
+
+    user = User.find(id)
+    if user
+      render json: user
+    else
+      render json: { error: 'Invalid token'}
+    end
+
+  end
+
   def index
     users = User.all 
     render json: users

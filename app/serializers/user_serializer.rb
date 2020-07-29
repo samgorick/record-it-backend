@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :created_at, :notes 
+  attributes :id, :username, :created_at, :notes, :jwt 
 
   has_many :notes
   has_many :given_follows
@@ -15,4 +15,11 @@ class UserSerializer < ActiveModel::Serializer
     result = mine + following
     result.flatten
   end
+
+  def jwt
+    payload = { user_id: @object.id}
+    secret = 's3cret!'
+    JWT.encode(payload, secret, 'HS256')
+  end
+  
 end
