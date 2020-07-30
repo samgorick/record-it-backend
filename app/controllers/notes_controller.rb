@@ -1,8 +1,8 @@
 class NotesController < ApplicationController
 
   def create
-    note = Note.create!(note_params)
-    params[:tags].each do |tag|
+    note = Note.create!(note_params.except(:tags))
+    note_params[:tags].each do |tag|
       t = Tag.find_by(name: tag)
       note.tags << t
     end
@@ -20,10 +20,10 @@ class NotesController < ApplicationController
   end
 
   def update
-    note = Note.find_by(id: params[:id])
-    note.update(note_params)
+    note = Note.find(note_params[:id])
+    note.update(note_params.except(:tags))
     note.tags.destroy_all
-    params[:tags].each do |tag|
+    note_params[:tags].each do |tag|
       t = Tag.find_by(name: tag)
       note.tags << t
     end
@@ -41,7 +41,7 @@ class NotesController < ApplicationController
   private
 
   def note_params(*args)
-    params.require(:note).permit(:id, :title, :content, :user_id)
+    params.require(:note).permit(:id, :title, :content, :user_id, tags: [])
   end
 
 end
