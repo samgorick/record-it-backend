@@ -13,8 +13,7 @@ Available to view [here](https://record-it.netlify.app/).
 
 ## Key Technologies
 
+- Ruby on Rails API backend
 - React JS front-end
 - Formik library used for form management and Yup library for user input validations
 - Moment JS library used to manage time. Particularly useful for managing length of time from the present (e.g. 1 hour ago, 4 days ago)
-- Ruby on Rails API back-end
-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
